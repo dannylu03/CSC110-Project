@@ -15,8 +15,32 @@ cond = (covid_df["Country_code"] == "US")
 
 us_covid_df = covid_df.loc[cond]
 
-fig = px.scatter(us_covid_df, x = "Date_reported", y = "New_cases")
-fig.show()
+# Accumulators
+days = 0 
+month_average = 0
+monthly_average = []
+
+dates = us_covid_df["Date_reported"]
+new_cases = us_covid_df["New_cases"]
+
+for i in range(len(dates)):
+    if i > 1:
+      if dates[i].month != dates[i - 1].month:
+          month_average = month_average / days
+          monthly_average.append(month_average)
+          days, month_average = 0
+
+    try: 
+      monthly_average += new_cases.iloc[i]
+      days += 1
+    
+    except:
+      raise KeyError
+
+
+
+# fig = px.scatter(us_covid_df, x = "Date_reported", y = monthly_average)
+# fig.show()
 
 
 
