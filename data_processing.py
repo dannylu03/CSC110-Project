@@ -10,12 +10,17 @@ covid_df = covid_df[['Date_reported', 'Country_code', 'New_cases', 'Cumulative_c
 start = dt.datetime(2020, 1, 3)
 end = dt.datetime.now()
 
+# Conditional statemnt to filter the covid_df for only data on the US
+cond = (covid_df["Country_code"] == "US")
+
+us_covid_df = covid_df.loc[cond]
+
+fig = px.scatter(us_covid_df, x = "Date_reported", y = "New_cases")
+fig.show()
 
 
 
-
-
-if __name__ == "__main__":
+# if __name__ == "__main__":
   # import python_ta
 
   #   python_ta.check_all(config={
