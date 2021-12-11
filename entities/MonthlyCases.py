@@ -1,15 +1,18 @@
+"""Insert Module shit here
+"""
 import datetime as dt
-from DailyCases import Daily_cases
+from DailyCases import DailyCases
+
 
 class MonthlyCovidCases:
-    """
+    """Contains methods to calculate stats for covid cases in a month
     """
 
-    def __init__(self, daily_covid_cases: list[Daily_cases], cumulative_covid_cases: int, month: dt.datetime) -> None:
+    def __init__(self, month_list_cases: list[DailyCases], cumulative_cases: int, month: dt.datetime) -> None:
         """Initialize a new ????
         """
-        self._daily_covid_cases = []
-        self._cumulative_covid_cases = cumulative_covid_cases
+        self._month_list_cases = month_list_cases
+        self._cumulative_cases = cumulative_cases
         self._month = month
     
     def calculate_average_daily_increase(self) -> float:
@@ -20,17 +23,17 @@ class MonthlyCovidCases:
         average_daily_increase = 0.0
 
         # Initialize num_days as the length of this month object's list of daily covid cases
-        num_days = len(self._daily_covid_cases)
+        num_days = len(self._month_list_cases)
+
+        total_new_cases = sum([d.new_cases for d in self._month_list_cases])
         
-        # Iterate from 1 to the number of days in instance month, and calculate the percent increase 
-        # from that day and the previous day.
-        for i in range(1, num_days):
-            average_daily_increase += (self._daily_covid_cases[i].new_cases - self._daily_covid_cases[i]) * 100
-        
-        average_daily_increase = average_daily_increase / num_days
+        average_daily_increase = total_new_cases / num_days
         return average_daily_increase
 
-
     def calculate_total_monthly_increase(self) -> float:
-        pass
-                                                                        
+        """Return the total increase in cumulative cases this month"""
+        last_day = len(self._month_list_cases) - 1
+        last_day_cases = self._month_list_cases[last_day].cumulative_cases
+        first_day_cases = self._month_list_cases[0].cumulative_cases
+
+        return last_day_cases - first_day_cases
