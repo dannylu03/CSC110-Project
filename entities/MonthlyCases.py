@@ -33,3 +33,4 @@ class MonthlyCovidCases:
 
     def calculate_total_monthly_increase(self) -> float:
         pass
+                                                                        
