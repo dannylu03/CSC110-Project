@@ -25,11 +25,15 @@ class MonthlyCovidCases:
         # Iterate from 1 to the number of days in instance month, and calculate the percent increase 
         # from that day and the previous day.
         for i in range(1, num_days):
-            average_daily_increase += (self._daily_covid_cases[i].new_cases - self._daily_covid_cases[i]) * 100
+            average_daily_increase += (self._daily_covid_cases[i].new_cases - self._daily_covid_cases[i-1]) / \
+                                      self._daily_covid_cases[i - 1] * 100
         
         average_daily_increase = average_daily_increase / num_days
         return average_daily_increase
 
-
     def calculate_total_monthly_increase(self) -> float:
-        pass
+        """Return a float value of the cumulative increase in covid cases of this month instance.
+        """
+        num_days = len(self._daily_covid_cases)
+
+        return self.calculate_average_daily_increase() * num_days
