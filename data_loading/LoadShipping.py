@@ -21,6 +21,7 @@ class LoadShipping(DataLoad):
             next(raw_file_data)
             for row in raw_file_data:
                 # Appends raw_data with relevant entries from the data set
-                self.raw_data.append((int(row[5]), int(row[-2]), int(row[-1])))
+                if int(row[-1]) > 2010:
+                    self.raw_data.append((int(row[5]), int(row[-2]), int(row[-1])))
         return self.raw_data
 

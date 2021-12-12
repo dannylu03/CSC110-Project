@@ -1,5 +1,5 @@
 from data_loading.DataLoad import DataLoad
-import csv
+import openpyxl
 
 
 class LoadGdp(DataLoad):
@@ -13,10 +13,11 @@ class LoadGdp(DataLoad):
 
 
          """
-        with open(self.file_path, 'r') as raw_gdp_data:
-            raw_file_data = csv.reader(raw_gdp_data)
-            # Skips header row
-            next(raw_file_data)
-            for row in raw_file_data:
-                self.raw_data.append((row[0], float(row[1])))
+        sheets = openpyxl.open(self.file_path)
+        sheet_data = sheets['Data']
+        i = 6
+        while sheet_data.cell(i, 2).value is not None:
+            self.raw_data.append((sheet_data.cell(i, 2).value, float(sheet_data.cell(i, 2).value)))
+            i += 6
+
         return self.raw_data
