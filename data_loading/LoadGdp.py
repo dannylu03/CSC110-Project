@@ -16,6 +16,7 @@ class LoadGdp(DataLoad):
         sheets = openpyxl.open(self.file_path)
         sheet_data = sheets['Data']
         i = 6
+        # reads cells while they contain relevant values
         while sheet_data.cell(i, 2).value is not None:
             self.raw_data.append((sheet_data.cell(i, 2).value, float(sheet_data.cell(i, 2).value)))
             i += 6
