@@ -4,7 +4,7 @@ import datetime
 
 
 @dataclass
-class Unemployment:
+class MonthlyUnemployment:
     """Monthly unemployment rate in the US"""
     month: datetime.datetime
     unemployment_rate: float
