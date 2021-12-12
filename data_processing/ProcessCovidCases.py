@@ -8,9 +8,7 @@ class ProcessCovidCases:
         self._monthly_covid_cases = []
 
     def process_monthly_cases(self, raw_covid_data: list[(str, str, int, int, int, int)]) -> None:
-        cumulative_cases = 0
-
-        # Maps year-month to list of daily cases
+        # Maps datetime objects in the form of year-month to a list of Daily Case objects
         date_to_cases = {}
 
         for data in raw_covid_data:
