@@ -4,13 +4,14 @@ from data_processing import ProcessShippingData
 from entities.MonthlyShipping import MonthlyShipping
 from entities.QuarterlyShipping import QuarterlyShipping
 from entities.ShipTrade import ShipTrade
+from Utilities import Utils
 
 
 def quarterly_shipping_sample() -> [QuarterlyShipping]:
     monthly_trades_q1 = [MonthlyShipping(datetime(2013, 2, 1), [ShipTrade(datetime(2013, 2, 1), 500)])]
     monthly_trades_q2 = [MonthlyShipping(datetime(2013, 12, 1), [ShipTrade(datetime(2013, 12, 1), 100)]),
                          MonthlyShipping(datetime(2013, 11, 1), [ShipTrade(datetime(2013, 11, 1), 200)])]
-    monthly_trades_q3 = [MonthlyShipping(datetime(2021, 1, 1), [ShipTrade(datetime(2021, 1, 1), 200)]),
+    monthly_trades_q3 = [MonthlyShipping(datetime(2021, 1, 1), [ShipTrade(datetime(2021, 1, 1), 400)]),
                          MonthlyShipping(datetime(2021, 2, 1), [ShipTrade(datetime(2021, 2, 1), 600)])]
     quarterly_shipping = [QuarterlyShipping(1, 2013, monthly_trades_q1), QuarterlyShipping(4, 2013, monthly_trades_q2),
                           QuarterlyShipping(1, 2021, monthly_trades_q3)]
@@ -31,10 +32,11 @@ def test_processing_shipping_data() -> None:
     process_shipping_data = ProcessShippingData.ProcessShippingData()
     process_shipping_data.process_monthly_trades(raw_ship_data)
     actual = process_shipping_data.process_quarterly_trades()
+    Utils.quarterly_shipping_sort(actual)
     assert len(actual) == len(expected)
-    #for i in range(len(actual)):
-        #assert actual[i].year == expected[i].year
-        #assert actual[i].quarter == expected[i].quarter
-        #assert actual[i].quarterly_value == expected[i].quarterly_value
+    for i in range(len(actual)):
+        assert actual[i].year == expected[i].year
+        assert actual[i].quarter == expected[i].quarter
+        assert actual[i].quarterly_value == expected[i].quarterly_value
 
 

@@ -2,7 +2,6 @@ from QuarterlyGdp import QuarterlyGdp
 
 class ProcessGdp:
 
-
     def __init__(self):
         self._quarterly_gdp = []
 
