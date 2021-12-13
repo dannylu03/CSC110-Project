@@ -4,6 +4,7 @@ from entities.MonthlyCases import MonthlyCovidCases
 from entities.DailyCases import DailyCases
 from Utilities.Utils import QUARTERS
 
+
 class ProcessCovidCases:
     _monthly_covid_cases: list[MonthlyCovidCases]
     _quarterly_covid_cases: list[QuarterlyCovidCases]
@@ -44,6 +45,7 @@ class ProcessCovidCases:
             # Convert integer into a string used as keys for the dates_and_daily_cases dictionary. 
             year_month = str(year) + '-' + str(month)
 
+
             # If the date is not in the dates_and_daily_cases dictionary, intialize it with a list of a daily case object.
             if year_month not in dates_and_daily_cases:
                 dates_and_daily_cases[year_month] = [DailyCases(country_code, cumulative_cases, new_cases, year, month)]
@@ -82,8 +84,8 @@ class ProcessCovidCases:
         for monthly_case in self._monthly_covid_cases:
             # Using the Quarters dictionary mapping from the utilities folder, we access the quarter a month
             # is in by passing in the month as an integer value. 
-            quarter = QUARTERS[int(monthly_case.month)]
-            year = monthly_case.year
+            quarter = QUARTERS[int(monthly_case._month)]
+            year = monthly_case._year
 
             # Convert datetime object into a string used as keys for the dates_and_monthly_cases dictionary. 
             year_quarter = str(year) + '-' + str(quarter)
@@ -98,11 +100,11 @@ class ProcessCovidCases:
         
         for key in dates_and_monthly_cases:
             quarterly_cases = dates_and_monthly_cases[key]
-            cumulative_cases = dates_and_monthly_cases[key][-1].cumulative_cases
+            cumulative_cases = dates_and_monthly_cases[key][-1]._cumulative_cases
 
-            month = dates_and_monthly_cases[key][0].month
+            month = dates_and_monthly_cases[key][0]._month
             quarter = QUARTERS[int(month)]
 
-            quarterly_covid_cases = QuarterlyCovidCases(quarterly_cases, cumulative_cases, quarter, dates_and_monthly_cases[key][0].year)
+            quarterly_covid_cases = QuarterlyCovidCases(quarterly_cases, cumulative_cases, quarter, dates_and_monthly_cases[key][0]._year)
 
             self._quarterly_covid_cases.append(quarterly_covid_cases)
