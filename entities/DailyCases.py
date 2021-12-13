@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 @dataclass
 class DailyCases:
-    """Daily covid cases stats"""
+    """Covid stats in a day"""
     country: str
     cumulative_cases: int
     new_cases: int
