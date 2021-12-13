@@ -1,16 +1,16 @@
-"""Insert Module shit here
-"""
-from datetime import datetime
-from DailyCases import DailyCases
+"""CSC110 Final Project: Entities Monthly Cases
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee."""
+from entities.DailyCases import DailyCases
 
 
 class MonthlyCovidCases:
-    """Contains methods to calculate stats for covid cases in a month
-    """
+    """Monthly covid cases stats"""
 
     def __init__(self, monthly_cases: list[DailyCases], cumulative_cases: int, month: int, year: int) -> None:
-        """Initialize a new ????
-        """
         self._monthly_cases = monthly_cases
         self._cumulative_cases = cumulative_cases
         self._month = month
@@ -19,10 +19,6 @@ class MonthlyCovidCases:
     def calculate_average_daily_increase(self) -> float:
         """Return a float value of the average daily increase of this month instance. 
         """
-
-        # Initialize accumulator which will be returned later
-        average_daily_increase = 0.0
-
         # Initialize num_days as the length of this month object's list of daily covid cases
         num_days = len(self._monthly_cases)
 
