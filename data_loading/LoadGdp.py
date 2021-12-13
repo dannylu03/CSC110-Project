@@ -1,8 +1,16 @@
+"""CSC110 Final Project: Data Loading: Load Gdp
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 from data_loading.DataLoad import DataLoad
 import openpyxl
 
 
 class LoadGdp(DataLoad):
+    """Load Gdp data"""
 
     def __init__(self, file_path: str):
         super().__init__(file_path)
@@ -19,6 +27,6 @@ class LoadGdp(DataLoad):
         # reads cells while they contain relevant values
         while sheet_data.cell(i, 2).value is not None:
             self.raw_data.append((sheet_data.cell(i, 2).value, float(sheet_data.cell(i, 3).value)))
-            i += 6
+            i += 1
 
         return self.raw_data

@@ -1,7 +1,15 @@
+"""CSC110 Final Project: Data Processing Process Covid Cases
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 from typing import Any
 
 
 class DataLoad:
+    """Loads data"""
 
     raw_data: Any
     file_path: str
@@ -12,3 +20,4 @@ class DataLoad:
 
     def load_data(self):
         """load raw data from file into raw_data"""
+        raise NotImplementedError

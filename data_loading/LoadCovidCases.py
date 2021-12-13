@@ -1,9 +1,16 @@
+"""CSC110 Final Project: Data Loading: Load Covid Cases
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 from data_loading.DataLoad import DataLoad
 import csv
-from datetime import datetime
+
 
 class LoadCovidCases(DataLoad):
-
+    """Load covid data"""
     def __init__(self, file_path: str) -> None:
         super().__init__(file_path)
         self.raw_data = []

@@ -1,4 +1,10 @@
-from datetime import datetime
+"""CSC110 Final Project: Data Processing Process Covid Cases
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 from entities.QuarterlyCovidCases import QuarterlyCovidCases
 from entities.MonthlyCases import MonthlyCovidCases
 from entities.DailyCases import DailyCases
@@ -54,7 +60,7 @@ class ProcessCovidCases:
             else:
                 dates_and_daily_cases[year_month].append(DailyCases(country_code, cumulative_cases, new_cases, year, month))
 
-
+        
         # Iterate through every key (strings in the form of year-month) in the dates_and_daily_cases dictionary
         for date in dates_and_daily_cases:
             monthly_cases = dates_and_daily_cases[date]

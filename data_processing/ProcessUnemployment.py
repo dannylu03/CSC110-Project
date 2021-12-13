@@ -3,14 +3,15 @@
 Copyright and Usage Information
 ===============================
 
-This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee."""
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 from entities.MonthlyUnemployment import MonthlyUnemployment
 from entities.QuarterlyUnemployment import QuarterlyUnemployment
 from Utilities.Utils import QUARTERS
 
 
 class ProcessUnemployment:
-    """Process the raw data from LoadUnemployment"""
+    """Processes the raw unemployment data from LoadUnemployment"""
 
     def __init__(self) -> None:
         self._monthly_unemployment = []

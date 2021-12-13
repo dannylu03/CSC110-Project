@@ -11,6 +11,7 @@ from data_loading.LoadShipping import LoadShipping
 from data_processing.ProcessShippingData import ProcessShippingData
 from data_loading.LoadGdp import LoadGdp
 from data_processing.ProcessGdp import ProcessGdp
+import pandas as pd
 
 # --- Covid Cases
 covid_file_path = '../data/WHO-COVID-19-global-data.csv'
@@ -51,17 +52,30 @@ process_gdp_data.process_gdp(loaded_gdp_data)
 quarterly_gdp = process_gdp_data.quarterly_gdp
 
 quarterly_covid_cases = [quarter._cumulative_cases for quarter in quarterly_covid_cases]
-quarterly_unemployment = [quarter.calculate_average_quarterly_unemployment() for quarter in quarterly_unemployment if quarter._year >= 2020]
-quarterly_shipping = [quarter.calculate_quarterly_value() for quarter in quarterly_shipping if quarter.year >= 2020]
+quarterly_unemployment = [quarter.calculate_average_quarterly_unemployment() for quarter in quarterly_unemployment if
+                          quarter._year >= 2020]
+quarterly_shipping = [quarter.quarterly_value for quarter in quarterly_shipping if quarter.year >= 2020]
 quarterly_gdp = [quarter.growth for quarter in quarterly_gdp if quarter.year >= 2020]
+
+quarterly_covid_cases = {'Quarterly Covid Cases': quarterly_covid_cases}
+quarterly_unemployment = {'Quarterly Unemployment Rates': quarterly_unemployment}
+quarterly_shipping = {'Quarterly Shipping': quarterly_shipping}
+quarterly_gdp = {'Quarterly GDP': quarterly_gdp}
+
+# Don't want the last quarter
+quarterly_covid_cases['Quarterly Covid Cases'].pop()
+quarterly_unemployment['Quarterly Unemployment Rates'].pop()
+
+data = {**quarterly_covid_cases, **quarterly_unemployment, **quarterly_shipping, **quarterly_gdp}
+df = pd.DataFrame(data)
 
 print(quarterly_covid_cases)
 print(quarterly_gdp)
 print(quarterly_unemployment)
 print(quarterly_shipping)
 
-X = [[quarterly_covid_cases], [quarterly_unemployment], [quarterly_shipping]]
-y = [quarterly_gdp]
+X = df[['Quarterly Covid Cases', 'Quarterly Unemployment Rates', 'Quarterly Shipping']]
+y = df['Quarterly GDP']
 
 x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 

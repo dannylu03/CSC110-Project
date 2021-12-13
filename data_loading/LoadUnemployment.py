@@ -1,8 +1,16 @@
+"""CSC110 Final Project: Data Loading: Load Unemployment
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 from data_loading.DataLoad import DataLoad
 import csv
 
 
 class LoadUnemployment(DataLoad):
+    """Load unemployment data"""
 
     def __init__(self, file_path: str):
         super().__init__(file_path)

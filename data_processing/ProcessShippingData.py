@@ -1,3 +1,10 @@
+"""CSC110 Final Project: Data Processing Process Shipping Data
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 from datetime import datetime
 
 from entities.ShipTrade import ShipTrade
@@ -7,17 +14,16 @@ from Utilities.Utils import QUARTERS
 
 
 class ProcessShippingData:
+    """Processes the raw maritime trade data from LoadShipping"""
 
     _monthly_ship_trades: [MonthlyShipping]
 
-    def __init__(self):
+    def __init__(self) -> None:
         self._monthly_ship_trades = []
         self._quarterly_ship_trades = []
 
     def process_monthly_trades(self, raw_ship_data: list[(int, int, int)]) -> None:
-        """
-            Processes maritime trade data so
-        """
+        """Process maritime data into months"""
         # discard any previous data
         self._monthly_ship_trades = []
         trades_and_dates = {}
@@ -56,5 +62,3 @@ class ProcessShippingData:
             self._quarterly_ship_trades.append(quarterly_shipping)
 
         return self._quarterly_ship_trades
-
-

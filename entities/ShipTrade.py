@@ -1,10 +1,17 @@
+"""CSC110 Final Project: Entities ShipTrade
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 import datetime
 from dataclasses import dataclass
 
 
 @dataclass
 class ShipTrade:
-    """A metric that is taken from the shipping data set.
+    """A shipment metric that is taken from the shipping data set.
 
     Instance Attributes:
         - date: the date of which the ship trade occured
