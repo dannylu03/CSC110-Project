@@ -1,25 +1,28 @@
+"""CSC110 Final Project: Data Loading: Load Gdp
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 from data_loading.DataLoad import DataLoad
 import openpyxl
 
 
 class LoadGdp(DataLoad):
+    """Load Gdp data"""
 
     def __init__(self, file_path: str):
         super().__init__(file_path)
         self.raw_data = []
 
     def load_data(self) -> list[(str, float)]:
-        """
-        Loads data from provided file path
+        """ Loads data from provided file path
 
-        Preconditions:
-            - self.file_path != ''
-        """
-        # opens excel file
+
+         """
         sheets = openpyxl.open(self.file_path)
-        # changes to relevant sheet
         sheet_data = sheets['Data']
-        # skips first 6 rows as they hold irrelevant or no dataa
         i = 6
         # reads cells while they contain relevant values
         while sheet_data.cell(i, 2).value is not None:
