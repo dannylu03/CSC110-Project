@@ -11,7 +11,13 @@ from Utilities.Utils import QUARTERS
 
 
 class ProcessCovidCases:
-    """Process the raw data from LoadCovidCases"""
+    """Process the raw data from LoadCovidCases
+
+    Private Instance Attributes:
+        - _monthly_covid_cases: this is a list containing all monthly covid cases of the US
+        - _quarterly_covid_cases: this is a list containing all quarterly covid cases of the US
+
+    """
     _monthly_covid_cases: list[MonthlyCovidCases]
     _quarterly_covid_cases: list[QuarterlyCovidCases]
 

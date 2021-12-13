@@ -9,7 +9,19 @@ from dataclasses import dataclass
 
 @dataclass
 class DailyCases:
-    """Daily covid cases stats"""
+    """Daily covid cases stats
+
+    Instance Attributes:
+        - country: the country corresponding to the COVID cases
+        - cumulative_cases: the total cumulated cases within the country
+        - new_cases: the total about of new cases of that month
+        - year: the year corresponding to the cases
+        - month: the month in the year corresponding to the cases
+
+    Representation Invariants:
+        - self.country != ''
+        - 0 < self.month < 13
+    """
     country: str
     cumulative_cases: int
     new_cases: int

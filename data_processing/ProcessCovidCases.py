@@ -54,7 +54,7 @@ class ProcessCovidCases:
             else:
                 dates_and_daily_cases[year_month].append(DailyCases(country_code, cumulative_cases, new_cases, year, month))
 
-        
+
         # Iterate through every key (strings in the form of year-month) in the dates_and_daily_cases dictionary
         for date in dates_and_daily_cases:
             monthly_cases = dates_and_daily_cases[date]

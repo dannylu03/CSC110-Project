@@ -12,6 +12,10 @@ class QuarterlyUnemployment:
     """Quarterly unemployment rate in the US"""
 
     def __init__(self, list_monthly: list[MonthlyUnemployment], quarter, year):
+        """Initialize a new monthly unemployment model
+
+        The System starts with no entities.
+        """
         self._list_monthly = list_monthly
         self._quarter = quarter
         self._year = year
