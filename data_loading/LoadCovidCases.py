@@ -1,6 +1,6 @@
 from data_loading.DataLoad import DataLoad
 import csv
-
+from datetime import datetime
 
 class LoadCovidCases(DataLoad):
 
@@ -8,7 +8,7 @@ class LoadCovidCases(DataLoad):
         super().__init__(file_path)
         self.raw_data = []
 
-    def load_data(self) -> list[(str, str, int, int, int, int)]:
+    def load_data(self) -> list[(datetime, str, int, int)]:
         """ Loads data from provided file path
 
 
@@ -18,5 +18,5 @@ class LoadCovidCases(DataLoad):
             # skips header row
             next(raw_file_data)
             for row in raw_file_data:
-                self.raw_data.append((row[0], row[1], int(row[-4]), int(row[-3]), int(row[-2]), int(row[-1])))
+                self.raw_data.append((row[0], row[1], int(row[-4]), int(row[-3])))
         return self.raw_data
