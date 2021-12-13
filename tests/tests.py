@@ -4,6 +4,9 @@ from data_processing import ProcessShippingData
 from entities.MonthlyShipping import MonthlyShipping
 from entities.QuarterlyShipping import QuarterlyShipping
 from entities.ShipTrade import ShipTrade
+from data_loading.LoadGdp import LoadGdp
+from data_processing.ProcessGdp import ProcessGdp
+from entities.QuarterlyGdp import QuarterlyGdp
 from Utilities import Utils
 
 
@@ -40,3 +43,22 @@ def test_processing_shipping_data() -> None:
         assert actual[i].quarterly_value == expected[i].quarterly_value
 
 
+def test_load_gdp() -> None:
+    file_path = '../data/statistic_id188185_real-gdp-growth-by-quarter-in-the-us-2011-2021.xlsx'
+    load_gdp = LoadGdp(file_path)
+    loaded_gdp = load_gdp.load_data()
+    assert loaded_gdp[0] == ('Q1 \'11', -1.0)
+    assert loaded_gdp[-1] == ('Q3 \'21', 2.1)
+
+
+def test_process_gdp() -> None:
+    raw_gdp_data = [('Q1 \'11', -1.0), ('Q2 \'13', 1.2), ('Q2 \'18', 5.1), ('Q3 \'21', 2.1)]
+    expected = [QuarterlyGdp(1, 2011, -1.0), QuarterlyGdp(2, 2013, 1.2), QuarterlyGdp(2, 2018, 5.1), QuarterlyGdp(3, 2021, 2.1)]
+    processing_gdp = ProcessGdp()
+    processing_gdp.process_gdp(raw_gdp_data)
+    actual = processing_gdp.quarterly_gdp
+    assert len(actual) == len(expected)
+    for i in range(len(actual)):
+        assert actual[i].quarter == expected[i].quarter
+        assert actual[i].year == expected[i].year
+        assert actual[i].growth == expected[i].growth
