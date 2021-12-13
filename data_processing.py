@@ -1,22 +1,9 @@
-"""CSC110 Fall 2021 Project
-
-Instructions (READ THIS FIRST!)
-===============================
-Implement each of the functions in this file. As usual, do not change any function headers
-or preconditions. You do NOT need to add doctests.
-
-You may create some additional helper functions to help break up your code into smaller parts.
+"""CSC110 Final Project: Data Processing Utilities
 
 Copyright and Usage Information
 ===============================
 
-This file is provided solely for the personal and private use of students
-taking CSC110 at the University of Toronto St. George campus. All forms of
-distribution of this code, whether as given or with any changes, are
-expressly prohibited. For more information on copyright for CSC110 materials,
-please consult our Course Syllabus.
-
-This file is Copyright (c) 2021 Danny Lu, Alex Balaria, Yue Fung Lee, and Clark Zhang.
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
 """
 
 import pandas as pd

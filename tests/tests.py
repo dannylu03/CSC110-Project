@@ -1,3 +1,10 @@
+"""CSC110 Final Project: Shipping and GDP Tests
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 from datetime import datetime
 from data_loading import LoadShipping
 from data_processing import ProcessShippingData

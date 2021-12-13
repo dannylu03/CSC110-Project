@@ -1,4 +1,10 @@
-# How has the pandemic impacted US maritime trade
+"""CSC110 Final Project: Main Runfile
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 import numpy as np
 import plotly.express as px
 from tensorflow import keras

@@ -1,3 +1,10 @@
+"""CSC110 Final Project: Unemployment Tests
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 from data_loading.LoadUnemployment import LoadUnemployment
 from entities.QuarterlyUnemployment import QuarterlyUnemployment
 from entities.MonthlyUnemployment import MonthlyUnemployment

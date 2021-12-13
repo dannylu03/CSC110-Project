@@ -1,3 +1,10 @@
+"""CSC110 Final Project: Entities Monthly Shipping
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 from datetime import datetime
 
 from entities.ShipTrade import ShipTrade

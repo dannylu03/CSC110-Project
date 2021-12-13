@@ -1,3 +1,10 @@
+"""CSC110 Final Project: COVID Tests
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 from data_loading import LoadCovidCases
 from entities.QuarterlyCovidCases import QuarterlyCovidCases
 from entities.MonthlyCases import MonthlyCovidCases
