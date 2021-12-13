@@ -93,10 +93,12 @@ class ProcessCovidCases:
                 dates_and_monthly_cases[year_quarter].append(monthly_case)
         
         for quarter in dates_and_monthly_cases:
-            quarter_list_cases = dates_and_monthly_cases[quarter]
+            quarterly_cases = dates_and_monthly_cases[quarter]
             cumulative_cases = dates_and_monthly_cases[quarter][-1].cumulative_cases
-            quarter = QUARTERS[int(dates_and_monthly_cases[quarter][0].month)]
 
-            quarterly_covid_cases = QuarterlyCovidCases(quarter_list_cases, cumulative_cases, quarter, dates_and_monthly_cases[quarter][0].year)
+            month = dates_and_monthly_cases[quarter][0].month
+            quarter = QUARTERS[int(month)]
+
+            quarterly_covid_cases = QuarterlyCovidCases(quarterly_cases, cumulative_cases, quarter, dates_and_monthly_cases[quarter][0].year)
 
             self._quarterly_covid_cases.append(quarterly_covid_cases)
