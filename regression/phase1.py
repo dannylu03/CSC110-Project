@@ -92,6 +92,7 @@ r2_score = r2_score(y_test, y_pred)
 regr = linear_model.LinearRegression()
 regr.fit(X, y)
 
+print(r2_score)
 print(regr.coef_)
 """
 LoadData(variables)
