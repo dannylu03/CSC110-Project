@@ -3,7 +3,7 @@ from datetime import datetime
 
 class QuarterlyCovidCases:
     def __init__(self, quarter_cases: list[MonthlyCovidCases], cumulative_cases: int, quarter: int, year: datetime) -> None:
-        self._quarter_cases = quarter_cases
+        self._quarterly_cases = quarter_cases
         self._cumulative_cases = cumulative_cases
         self._quarter = quarter
         self._year = year
