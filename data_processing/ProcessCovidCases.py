@@ -12,7 +12,7 @@ class ProcessCovidCases:
         self._monthly_covid_cases = []
         self._quarterly_covid_cases = []
 
-    def process_monthly_cases(self, raw_covid_data: list[(str, str, int, int, int, int)]) -> None:
+    def process_monthly_cases(self, raw_covid_data: list[(str, str, int, int)]) -> None:
         """ Processes the raw_covid_data by instantiating a monthly covid case object using the data from each row in the raw covid data.
 
         The monthly covid case objects will then be appended to private attribute: _monthly_covid_cases
@@ -25,6 +25,8 @@ class ProcessCovidCases:
         # Dictionary that holds dates in the form of year-month as a string. Each key has a value of a list of
         # Daily Covid Case objects which represents every row in the raw covid data. 
         dates_and_daily_cases = {}
+
+        raw_covid_data = [row for row in raw_covid_data if row[1] == "US"]
 
         for data in raw_covid_data:
             # Initialize variables for each part of the row tuple data.
