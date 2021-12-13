@@ -1,4 +1,4 @@
-from MonthlyUnemployment import MonthlyUnemployment
+from entities.MonthlyUnemployment import MonthlyUnemployment
 
 
 class QuarterlyUnemployment:
