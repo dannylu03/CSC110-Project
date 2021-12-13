@@ -1,9 +1,17 @@
+"""CSC110 Final Project: Entities Quarterly Shipping
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 from datetime import datetime
 from entities.MonthlyShipping import MonthlyShipping
 from entities.ShipTrade import ShipTrade
 
 
 class QuarterlyShipping:
+    """Shipments in a quarter"""
 
     _monthly_ship_trades: [MonthlyShipping]
     quarterly_value: int
