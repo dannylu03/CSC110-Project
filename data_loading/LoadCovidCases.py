@@ -4,11 +4,11 @@ from datetime import datetime
 
 class LoadCovidCases(DataLoad):
 
-    def __init__(self, file_path: str):
+    def __init__(self, file_path: str) -> None:
         super().__init__(file_path)
         self.raw_data = []
 
-    def load_data(self) -> list[(datetime, str, int, int)]:
+    def load_data(self) -> list[(str, str, int, int)]:
         """ Loads data from provided file path
 
 

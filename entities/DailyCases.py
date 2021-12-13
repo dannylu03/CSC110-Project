@@ -9,4 +9,5 @@ class DailyCases:
     country: str
     cumulative_cases: int
     new_cases: int
-    date: datetime.datetime
+    year: int
+    month: int
