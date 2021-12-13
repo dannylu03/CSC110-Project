@@ -1,4 +1,10 @@
-from datetime import datetime
+"""CSC110 Final Project: Data Processing Process Covid Cases
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 from entities.QuarterlyCovidCases import QuarterlyCovidCases
 from entities.MonthlyCases import MonthlyCovidCases
 from entities.DailyCases import DailyCases
@@ -6,6 +12,7 @@ from Utilities.Utils import QUARTERS
 
 
 class ProcessCovidCases:
+    """Processes the raw covid data from LoadCovidCases"""
     _monthly_covid_cases: list[MonthlyCovidCases]
     _quarterly_covid_cases: list[QuarterlyCovidCases]
 
@@ -45,29 +52,28 @@ class ProcessCovidCases:
             # Convert integer into a string used as keys for the dates_and_daily_cases dictionary. 
             year_month = str(year) + '-' + str(month)
 
-
-            # If the date is not in the dates_and_daily_cases dictionary, intialize it with a list of a daily case object.
+            # If the date is not in dates_and_daily_cases, intialize it with a list of a daily case object.
             if year_month not in dates_and_daily_cases:
                 dates_and_daily_cases[year_month] = [DailyCases(country_code, cumulative_cases, new_cases, year, month)]
             
             # If the date is already a key, add to it's list value with a daily case object.
             else:
-                dates_and_daily_cases[year_month].append(DailyCases(country_code, cumulative_cases, new_cases, year, month))
+                dates_and_daily_cases[year_month].append(DailyCases(country_code, cumulative_cases,
+                                                                    new_cases, year, month))
 
-        
         # Iterate through every key (strings in the form of year-month) in the dates_and_daily_cases dictionary
         for date in dates_and_daily_cases:
             monthly_cases = dates_and_daily_cases[date]
 
             # The cumulative cases for the month will be equal to the total cases in the last day of the month.
-            # In this case, the last day of the month represents the last Daily Case object in the dictionary list value.
+            # In this case, the last day of the month represents the last Daily Case object in the dictionary values.
             cumulative_cases = dates_and_daily_cases[date][-1].cumulative_cases
 
-            # Since all daily cases belong in the same month and year for each key, taking the month and year attributes of any daily case object will work.
+            # All DailyCases objects within each list have the same month and year attributes
             month = dates_and_daily_cases[date][0].month
             year = dates_and_daily_cases[date][0].year
 
-            # create a monthly covid case object for each iteration and then append it to the _monthly_covid_cases list attribute.
+            # Create a monthly covid case object and append it to the _monthly_covid_cases list attribute.
             monthly_covid_case = MonthlyCovidCases(monthly_cases, cumulative_cases, month, year)
             self._monthly_covid_cases.append(monthly_covid_case)
     
@@ -90,7 +96,7 @@ class ProcessCovidCases:
             # Convert datetime object into a string used as keys for the dates_and_monthly_cases dictionary. 
             year_quarter = str(year) + '-' + str(quarter)
 
-            # If the date is not in the dates_and_monthly_cases dictionary, intialize it with a list of a monthly case object.
+            # If the date is not in dates_and_monthly_cases, initialize it with a list of a monthly case object.
             if year_quarter not in dates_and_monthly_cases:
                 dates_and_monthly_cases[year_quarter] = [monthly_case]
             
