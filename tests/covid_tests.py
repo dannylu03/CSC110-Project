@@ -33,5 +33,3 @@ def test_processing_covid_data() -> None:
     for i in range(len(actual)):
         assert actual[i]._year == expected[i]._year
         assert actual[i]._quarter == expected[i]._quarter
-
-
