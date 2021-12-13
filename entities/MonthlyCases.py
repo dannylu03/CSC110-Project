@@ -1,7 +1,7 @@
 """Insert Module shit here
 """
 from datetime import datetime
-from DailyCases import DailyCases
+from entities.DailyCases import DailyCases
 
 
 class MonthlyCovidCases:

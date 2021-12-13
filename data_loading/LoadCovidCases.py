@@ -1,6 +1,6 @@
 from data_loading.DataLoad import DataLoad
 import csv
-from datetime import datetime
+
 
 class LoadCovidCases(DataLoad):
 
@@ -10,8 +10,6 @@ class LoadCovidCases(DataLoad):
 
     def load_data(self) -> list[(str, str, int, int)]:
         """ Loads data from provided file path
-
-
          """
         with open(self.file_path, 'r') as raw_covid_data:
             raw_file_data = csv.reader(raw_covid_data)
