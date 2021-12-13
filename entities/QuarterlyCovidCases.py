@@ -1,7 +1,14 @@
+"""CSC110 Final Project: Entities Quarterly Covid Cases
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee."""
 from entities.MonthlyCases import MonthlyCovidCases
-from datetime import datetime
+
 
 class QuarterlyCovidCases:
+    """Covid stats in a quarter"""
     def __init__(self, quarter_cases: list[MonthlyCovidCases], cumulative_cases: int, quarter: int, year: int) -> None:
         self._quarterly_cases = quarter_cases
         self._cumulative_cases = cumulative_cases
