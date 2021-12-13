@@ -44,7 +44,7 @@ class ProcessCovidCases:
             cumulative_cases = date_to_cases[date][-1].cumulative_cases
 
             # create a monthly covid case object for each iteration and then append it to the _monthly_covid_cases list attribute.
-            monthly_covid_case = MonthlyCovidCases(month_list_cases, cumulative_cases, date_to_cases[date][0].date.month)
+            monthly_covid_case = MonthlyCovidCases(month_list_cases, cumulative_cases, date_to_cases[date][0].date.month, date_to_cases[date][0].date.year)
             self._monthly_covid_cases.append(monthly_covid_case)
     
     def process_quarterly_cases(self) -> None:
@@ -68,8 +68,8 @@ class ProcessCovidCases:
         for quarter in years_and_quarters:
             quarter_list_cases = years_and_quarters[quarter]
             cumulative_cases = years_and_quarters[quarter][-1].cumulative_cases
-            quarter = QUARTERS[years_and_quarters[quarter][0].date.month]
+            quarter = QUARTERS[years_and_quarters[quarter][0].month]
 
-            quarterly_covid_cases = QuarterlyCovidCases(quarter_list_cases, cumulative_cases, quarter, years_and_quarters[quarter][0].date.year)
+            quarterly_covid_cases = QuarterlyCovidCases(quarter_list_cases, cumulative_cases, quarter, years_and_quarters[quarter][0].year)
 
             self._quarterly_covid_cases.append(quarterly_covid_cases)
