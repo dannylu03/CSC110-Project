@@ -11,7 +11,7 @@ class ProcessCovidCases:
         self._monthly_covid_cases = []
         self._quarterly_covid_cases = []
 
-    def process_monthly_cases(self, raw_covid_data: list[(str, str, int, int, int, int)]) -> None:
+    def process_monthly_cases(self, raw_covid_data: list[(datetime, str, int, int, int, int)]) -> None:
         # Maps datetime objects in the form of year-month to a list of Daily Case objects
         date_to_cases = {}
 
@@ -20,8 +20,6 @@ class ProcessCovidCases:
             country_code = data[1]
             new_cases = data[2]
             cumulative_cases = data[3]
-            new_deaths = data[4]
-            cumulative_deaths = data[5]
 
             # Initialize the attributes of the datetime object.
             year = date_reported.year
@@ -33,24 +31,25 @@ class ProcessCovidCases:
 
             # If the date is not in the dictionary, intialize it with a list of a daily case object.
             if year_month not in date_to_cases:
-                date_to_cases[year_month] = [DailyCases(country_code, cumulative_cases, new_cases, day)]
+                date_to_cases[year_month] = [DailyCases(country_code, cumulative_cases, new_cases, date_reported)]
             
             # If the date is already a key, add to it's list value with a daily case object.
             else:
-                date_to_cases[year_month].append(DailyCases(country_code, cumulative_cases, new_cases, day))
+                date_to_cases[year_month].append(DailyCases(country_code, cumulative_cases, new_cases, date_reported))
 
         
         # Iterate through every key in the date_to_cases dictionary
         for date in date_to_cases:
             month_list_cases = date_to_cases[date]
             cumulative_cases = date_to_cases[date][-1].cumulative_cases
-            
+
             # create a monthly covid case object for each iteration and then append it to the _monthly_covid_cases list attribute.
-            monthly_covid_case = MonthlyCovidCases(month_list_cases, cumulative_cases, date.year, date.month)
+            monthly_covid_case = MonthlyCovidCases(month_list_cases, cumulative_cases, date_to_cases[date][0].date.month)
             self._monthly_covid_cases.append(monthly_covid_case)
     
     def process_quarterly_cases(self) -> None:
         """Process Covid data into Quarters."""
+        # Maps year-quarter to a list of their monthly covid case objects.
         years_and_quarters = {}
         
         for monthly_case in self._monthly_covid_cases:
@@ -69,8 +68,8 @@ class ProcessCovidCases:
         for quarter in years_and_quarters:
             quarter_list_cases = years_and_quarters[quarter]
             cumulative_cases = years_and_quarters[quarter][-1].cumulative_cases
-            quarter = QUARTERS[years_and_quarters[quarter][0].month]
+            quarter = QUARTERS[years_and_quarters[quarter][0].date.month]
 
-            quarterly_covid_cases = QuarterlyCovidCases(quarter_list_cases, cumulative_cases, quarter)
+            quarterly_covid_cases = QuarterlyCovidCases(quarter_list_cases, cumulative_cases, quarter, years_and_quarters[quarter][0].date.year)
 
             self._quarterly_covid_cases.append(quarterly_covid_cases)
