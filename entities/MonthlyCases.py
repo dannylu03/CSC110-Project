@@ -8,7 +8,7 @@ class MonthlyCovidCases:
     """Contains methods to calculate stats for covid cases in a month
     """
 
-    def __init__(self, monthly_cases: list[DailyCases], cumulative_cases: int, month: datetime, year: datetime) -> None:
+    def __init__(self, monthly_cases: list[DailyCases], cumulative_cases: int, month: int, year: int) -> None:
         """Initialize a new ????
         """
         self._monthly_cases = monthly_cases

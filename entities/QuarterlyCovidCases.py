@@ -1,9 +1,8 @@
 from entities.MonthlyCases import MonthlyCovidCases
 from datetime import datetime
 
-
 class QuarterlyCovidCases:
-    def __init__(self, quarter_cases: list[MonthlyCovidCases], cumulative_cases: int, quarter: int, year: datetime) -> None:
+    def __init__(self, quarter_cases: list[MonthlyCovidCases], cumulative_cases: int, quarter: int, year: int) -> None:
         self._quarterly_cases = quarter_cases
         self._cumulative_cases = cumulative_cases
         self._quarter = quarter
