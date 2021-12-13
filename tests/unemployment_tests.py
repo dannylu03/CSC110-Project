@@ -3,8 +3,9 @@ from entities.QuarterlyUnemployment import QuarterlyUnemployment
 from entities.MonthlyUnemployment import MonthlyUnemployment
 from data_processing.ProcessUnemployment import ProcessUnemployment
 
+
 def test_load_unemployment() -> None:
-    file_path = '../data/unemployment.csv'
+    file_path = '../data/LNS14000024.csv'
     load_unemployment = LoadUnemployment(file_path)
     loaded_data = load_unemployment.load_data()
     assert loaded_data[0] == ('1948-01-01', 3.0)
@@ -19,6 +20,7 @@ def quarterly_unemployment_sample() -> [QuarterlyUnemployment]:
 
     return [QuarterlyUnemployment(monthly_unemploymentq1, 1948, 1),
             QuarterlyUnemployment(monthly_unemploymentq2, 1948, 2)]
+
 
 def test_processing_unemployment() -> None:
     raw_unemployment_data = [('1948-01-01', 3.0), ('1948-02-01', 3.3), ('1948-03-01', 3.5), ('1948-04-01', 3.5),
