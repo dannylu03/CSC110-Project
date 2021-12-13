@@ -23,18 +23,18 @@ class ProcessShippingData:
         trades_and_dates = {}
         # Maps months to trades
         for data in raw_ship_data:
-            date = datetime(data[1], data[2], 1)
+            date = datetime(data[2], data[1], 1)
             if date in trades_and_dates:
                 trades_and_dates[date].append(ShipTrade(date, data[0]))
             else:
                 trades_and_dates[date] = [ShipTrade(date, data[0])]
-        # Restructures dictionary oof months and trades into concrete MonthlyShipping class
+        # Restructures dictionary of months and trades into concrete MonthlyShipping class
         for date in trades_and_dates:
             monthly_shipping = MonthlyShipping(date, trades_and_dates[date])
             monthly_shipping.calculate_monthly_value()
             self._monthly_ship_trades.append(monthly_shipping)
 
-    def process_quarterly_trades(self) -> None:
+    def process_quarterly_trades(self) -> list[QuarterlyShipping]:
         """
             Process Maritime data into Quarters
         """
@@ -49,11 +49,12 @@ class ProcessShippingData:
             else:
                 years_and_quarters[code] = [monthly_trade]
 
-        for quarter in years_and_quarters:
-            quarter = QUARTERS[years_and_quarters[quarter][0].date.month]
-            year = years_and_quarters[quarter][0].date.month
-            quarterly_shipping = QuarterlyShipping(quarter, year, years_and_quarters[quarter])
+        for code in years_and_quarters:
+            quarter = QUARTERS[years_and_quarters[code][0].date.month]
+            year = years_and_quarters[code][0].date.year
+            quarterly_shipping = QuarterlyShipping(quarter, year, years_and_quarters[code])
             self._quarterly_ship_trades.append(quarterly_shipping)
 
+        return self._quarterly_ship_trades
 
 

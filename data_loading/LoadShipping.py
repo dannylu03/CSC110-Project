@@ -1,5 +1,4 @@
 from data_loading.DataLoad import DataLoad
-from typing import Any
 import csv
 
 
@@ -8,6 +7,7 @@ class LoadShipping(DataLoad):
     def __init__(self, file_path: str):
         """Initializes LoadShipping data class"""
         super().__init__(file_path)
+        print(file_path)
         self.raw_data = []
 
     def load_data(self) -> list[(int, int, int)]:
@@ -15,7 +15,8 @@ class LoadShipping(DataLoad):
 
 
         """
-        with open(self.file_path, 'r') as raw_shipping_file:
+        with open(self.file_path) as raw_shipping_file:
+
             raw_file_data = csv.reader(raw_shipping_file)
             # skips header row
             next(raw_file_data)

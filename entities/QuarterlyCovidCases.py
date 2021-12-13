@@ -1,5 +1,6 @@
 from entities.MonthlyCases import MonthlyCovidCases
 
+
 class QuarterlyCovidCases:
     def __init__(self, quarter_cases: list[MonthlyCovidCases], cumulative_cases: int, quarter: int) -> None:
         self._quarter_cases = quarter_cases
