@@ -1,3 +1,10 @@
+"""CSC110 Final Project: Regression Regression
+
+Copyright and Usage Information
+===============================
+
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 import pandas as pd
 import plotly.express as px
 from entities.QuarterlyCovidCases import QuarterlyCovidCases
@@ -7,6 +14,8 @@ from entities.QuarterlyGdp import QuarterlyGdp
 
 
 class Regression:
+    """Contains methods to create graphs"""
+
     def __init__(self, quarterly_covid_cases: list[QuarterlyCovidCases], quarterly_unemployment: list[QuarterlyUnemployment],
                  quarterly_shipping: list[QuarterlyShipping], quarterly_gdp: list[QuarterlyGdp]) -> None:
         self._quarterly_covid_cases = quarterly_covid_cases
@@ -15,8 +24,10 @@ class Regression:
         self._quarterly_gdp = quarterly_gdp
 
     def run_phase_1(self) -> None:
+        """Creates graphs for phase 1"""
+
         quarterly_unemployment = [quarter.calculate_average_quarterly_unemployment() for quarter in
-                                  self._quarterly_unemployment if 2011 <= quarter._year < 2020]
+                                  self._quarterly_unemployment if 2011 <= quarter.get_year() < 2020]
         quarterly_shipping = [quarter.quarterly_value for quarter in self._quarterly_shipping if 2011 <= quarter.year < 2020]
         quarterly_gdp = [quarter.growth for quarter in self._quarterly_gdp if 2011 <= quarter.year < 2020]
 
@@ -35,9 +46,11 @@ class Regression:
         plot_graph_with_linear_regression(df, 'Quarterly Unemployment Rate', 'Quarterly GDP', 0.65)
 
     def run_phase_2(self) -> None:
+        """Creates graphs for phase 2"""
+
         quarterly_covid_cases = [quarter.calculate_average_daily_increase() for quarter in self._quarterly_covid_cases]
         quarterly_unemployment = [quarter.calculate_average_quarterly_unemployment() for quarter in
-                                  self._quarterly_unemployment if quarter._year >= 2020]
+                                  self._quarterly_unemployment if quarter.get_year() >= 2020]
         quarterly_shipping = [quarter.quarterly_value for quarter in self._quarterly_shipping if quarter.year >= 2020]
 
         # Convert lists into dictionary mappings and the keys will represent columns in a dataframe.
@@ -67,6 +80,8 @@ class Regression:
         plot_graph_with_linear_regression(df2, 'Quarterly New Covid Cases', 'Quarterly Unemployment Rate', 0.65)
 
 def plot_graph_with_linear_regression(dataframe: DataFrame, x_axis: str, y_axis: str, opacity: float) -> None:
+    """Creates scatter plot and best fit line"""
+
     fig = px.scatter(
         dataframe, x_axis, y_axis, opacity,
         trendline='ols', trendline_color_override='darkblue'

@@ -26,6 +26,18 @@ class MonthlyCovidCases:
         self._month = month
         self._year = year
     
+    def get_monthly_cases(self) -> None:
+        return self._monthly_cases
+    
+    def get_cumulative_cases(self) -> None:
+        return self._cumulative_cases
+    
+    def get_month(self) -> None:
+        return self._month
+    
+    def get_year(self) -> None:
+        return self._year
+
     def calculate_average_daily_increase(self) -> float:
         """Return a float value of the average daily increase of this month instance. """
         # Initialize num_days as the length of this month object's list of daily covid cases

@@ -25,6 +25,9 @@ class QuarterlyUnemployment:
         self._quarter = quarter
         self._year = year
 
+    def get_year(self) -> int:
+        return self._year
+        
     def calculate_average_quarterly_unemployment(self) -> float:
         """Returns the average unemployment rate for this quarter"""
         total = sum([monthly_unemployment.unemployment_rate for monthly_unemployment in self._list_monthly])
