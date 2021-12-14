@@ -25,6 +25,9 @@ class QuarterlyUnemployment:
         self._quarter = quarter
         self._year = year
 
+    def get_list_monthly(self) -> list[MonthlyUnemployment]:
+        return self._list_monthly
+
     def get_year(self) -> int:
         """Return the object's year."""
         return self._year
