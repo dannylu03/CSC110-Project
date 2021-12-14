@@ -60,5 +60,26 @@ class ProcessShippingData:
             year = years_and_quarters[code][0].date.year
             quarterly_shipping = QuarterlyShipping(quarter, year, years_and_quarters[code])
             self._quarterly_ship_trades.append(quarterly_shipping)
-
+        self.quarterly_shipping_sort
         return self._quarterly_ship_trades
+
+    def quarterly_shipping_sort(self) -> None:
+        """
+            Helper function that sorts self._quarterly_ship_trades earliest year and quarter using Selection Sort
+            Preconditions:
+                - len(self._quarterly_ship_trades) != 0
+        """
+        # outer for loop that loops through all elements
+        for i in range(len(self._quarterly_ship_trades)):
+            earliest = i
+            # inner loop iterates through unsorted elements
+            for j in range(i + 1, len(self._quarterly_ship_trades)):
+                # compares the earliest element with rest of elements to find earliest element in unsorted list
+                if self._quarterly_ship_trades[earliest].year > self._quarterly_ship_trades[j].year:
+                    earliest = j
+                elif self._quarterly_ship_trades[earliest].year == self._quarterly_ship_trades[j].year \
+                        and self._quarterly_ship_trades[earliest].quarter > self._quarterly_ship_trades[j].quarter:
+                    earliest = j
+            # Swap earliest element if ith element in the list
+            self._quarterly_ship_trades[i], self._quarterly_ship_trades[earliest] = \
+                self._quarterly_ship_trades[earliest], self._quarterly_ship_trades[i]
