@@ -26,16 +26,28 @@ class QuarterlyShipping:
         - year: the year that corresponding to the value
     """
 
-    _monthly_ship_trades: List[MonthlyShipping]
-    quarterly_value: int
-    quarter: int
-    year: int
+    _monthly_ship_trades: list[MonthlyShipping]
+    _quarterly_value: int
+    _quarter: int
+    _year: int
 
     def __init__(self, quarter: int, year: int, ship_trades: list[MonthlyShipping]) -> None:
         self._monthly_ship_trades = ship_trades
-        self.quarter = quarter
-        self.year = year
+        self._quarter = quarter
+        self._year = year
         self.calculate_quarterly_value()
+
+    def get_monthly_ship_trades(self) -> list[MonthlyShipping]:
+        """Return the object's monthly ship trades."""
+        return self._monthly_ship_trades
+    
+    def get_quarter(self) -> int:
+        """Return the object's quarter."""
+        return self._quarter
+    
+    def get_year(self) -> int:
+        """Return the object's year."""
+        return self._year
 
     def calculate_quarterly_value(self) -> None:
         """Calculates total value of quarterly trade
