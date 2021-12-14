@@ -60,7 +60,9 @@ class ProcessShippingData:
             year = years_and_quarters[code][0].date.year
             quarterly_shipping = QuarterlyShipping(quarter, year, years_and_quarters[code])
             self._quarterly_ship_trades.append(quarterly_shipping)
-        self.quarterly_shipping_sort
+
+        self.quarterly_shipping_sort()
+        
         return self._quarterly_ship_trades
 
     def quarterly_shipping_sort(self) -> None:
