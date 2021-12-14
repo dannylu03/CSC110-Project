@@ -22,13 +22,25 @@ class MonthlyShipping:
 
     """
     _ship_trades: list[ShipTrade]
-    monthly_value: int
-    date: datetime
+    _monthly_value: int
+    _date: datetime
 
-    def __init__(self, date: datetime, ship_trades: list[ShipTrade]):
+    def __init__(self, date: datetime, ship_trades: list[ShipTrade]) -> None:
         self._ship_trades = ship_trades
         self.date = date
         self.calculate_monthly_value()
+
+    def get_ship_trades(self) -> list[ShipTrade]:
+        """Return the object's ship trades."""
+        return self._ship_trades
+
+    def get_monthly_value(self) -> int:
+        """Return the object's monthly value."""
+        return self._monthly_value
+
+    def get_date(self) -> datetime:
+        """Return the object's date."""
+        return self._date
 
     def calculate_monthly_value(self) -> None:
         """Calculates total value of monthly trade
