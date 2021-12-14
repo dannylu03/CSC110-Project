@@ -12,6 +12,7 @@ from data_processing.ProcessShippingData import ProcessShippingData
 from data_loading.LoadGdp import LoadGdp
 from data_processing.ProcessGdp import ProcessGdp
 import pandas as pd
+import plotly.express as px
 
 # --- Covid Cases
 covid_file_path = '../data/WHO-COVID-19-global-data.csv'
@@ -58,13 +59,13 @@ quarterly_shipping = [quarter.quarterly_value for quarter in quarterly_shipping 
 quarterly_gdp = [quarter.growth for quarter in quarterly_gdp if quarter.year >= 2020]
 
 quarterly_covid_cases = {'Quarterly Covid Cases': quarterly_covid_cases}
-quarterly_unemployment = {'Quarterly Unemployment Rates': quarterly_unemployment}
+quarterly_unemployment = {'Quarterly Unemployment Rate': quarterly_unemployment}
 quarterly_shipping = {'Quarterly Shipping': quarterly_shipping}
 quarterly_gdp = {'Quarterly GDP': quarterly_gdp}
 
 # Don't want the last quarter
 quarterly_covid_cases['Quarterly Covid Cases'].pop()
-quarterly_unemployment['Quarterly Unemployment Rates'].pop()
+quarterly_unemployment['Quarterly Unemployment Rate'].pop()
 
 data = {**quarterly_covid_cases, **quarterly_unemployment, **quarterly_shipping, **quarterly_gdp}
 df = pd.DataFrame(data)
@@ -74,7 +75,7 @@ print(quarterly_gdp)
 print(quarterly_unemployment)
 print(quarterly_shipping)
 
-X = df[['Quarterly Covid Cases', 'Quarterly Unemployment Rates', 'Quarterly Shipping']]
+X = df[['Quarterly Covid Cases', 'Quarterly Unemployment Rate', 'Quarterly Shipping']]
 y = df['Quarterly GDP']
 
 x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
@@ -94,6 +95,30 @@ regr.fit(X, y)
 
 print(r2_score)
 print(regr.coef_)
+
+# GDP - Covid
+covid_fig = px.scatter(
+    df, x='Quarterly Covid Cases', y='Quarterly GDP', opacity=0.65,
+    trendline='ols', trendline_color_override='darkblue'
+)
+
+covid_model = linear_model.LinearRegression()
+regr.fit(df['Quarterly Covid Cases'], df['Quaterly GDP'])
+
+
+unemployment_fig = px.scatter(
+    df, x='Quarterly Unemployment Rate', y='Quarterly GDP', opacity=0.65,
+    trendline='ols', trendline_color_override='darkblue'
+)
+
+shipping_fig = px.scatter(
+    df, x='Quarterly Shipping', y='Quarterly GDP', opacity=0.65,
+    trendline='ols', trendline_color_override='darkblue'
+)
+
+covid_fig.show()
+unemployment_fig.show()
+shipping_fig.show()
 """
 LoadData(variables)
 ^ All variables will be a DataFrame object and be on a monthly basis ?
