@@ -14,7 +14,7 @@ class MonthlyShipping:
     """A dataclass for the monthly shipping data.
 
     Private Instance Attributes:
-        - _ship_trades: a list of ShipTrade data, represents all the ship trade in the system
+        - _ship_trades: a list of ShipTrade data, represents all the shipments in the month
 
     Instance Attributes:
         - monthly_value: the monthly value from the sum of the trade_value

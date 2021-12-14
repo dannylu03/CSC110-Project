@@ -11,7 +11,7 @@ from entities.QuarterlyGdp import QuarterlyGdp
 class ProcessGdp:
     """Processes the raw gdp data from LoadGdp"""
 
-    quarterly_gdp: [QuarterlyGdp]
+    quarterly_gdp: List[QuarterlyGdp]
 
     def __init__(self) -> None:
         self.quarterly_gdp = []

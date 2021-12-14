@@ -6,6 +6,7 @@ Copyright and Usage Information
 This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
 """
 from datetime import datetime
+from typing import List
 
 from entities.ShipTrade import ShipTrade
 from entities.MonthlyShipping import MonthlyShipping
@@ -16,7 +17,7 @@ from Utilities.Utils import QUARTERS
 class ProcessShippingData:
     """Processes the raw maritime trade data from LoadShipping"""
 
-    _monthly_ship_trades: [MonthlyShipping]
+    _monthly_ship_trades: List[MonthlyShipping]
 
     def __init__(self) -> None:
         self._monthly_ship_trades = []

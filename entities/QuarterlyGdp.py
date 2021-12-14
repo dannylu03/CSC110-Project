@@ -14,11 +14,11 @@ class QuarterlyGdp:
 
     Instance Attributes:
         - quarter: the quarter of the specific year
-        - year: year that corresponds so the GDP growth
-        - growth: the growth of in GDP
+        - year: year that corresponds to the GDP growth
+        - growth: the growth of US real GDP
 
     Representation Invariants:
-        - 1 < self.quarter < 5
+        - 0 < self.quarter < 5
     """
     quarter: int
     year: int

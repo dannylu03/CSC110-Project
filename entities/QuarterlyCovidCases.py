@@ -8,12 +8,24 @@ from entities.MonthlyCases import MonthlyCovidCases
 
 
 class QuarterlyCovidCases:
-    """Covid stats in a quarter"""
+    """Covid stats in a quarter
+    
+    Instance Attributes:
+        - cumulative_cases: the total cumulated cases within the country
+        - new_cases: the number of new cases
+        - year: the year corresponding to the cases
+        - month: the month corresponding to the cases
+
+    Representation Invariants:
+        - 0 < self.month < 13
+    """
     def __init__(self, quarter_cases: list[MonthlyCovidCases], cumulative_cases: int, quarter: int, year: int) -> None:
         self._quarterly_cases = quarter_cases
         self._cumulative_cases = cumulative_cases
         self._quarter = quarter
         self._year = year
+
+    #TODO: Delete redundant methods
 
     def calculate_average_daily_increase(self) -> float:
         """Return a float value of the average daily increase of this quarter instance. 
@@ -36,9 +48,9 @@ class QuarterlyCovidCases:
 
     def calculate_total_quarterly_increase(self) -> float:
         """Return the total increase in cumulative cases this month"""
-        first_day_cases = self._quarter_cases[0]._month_list_cases[0].cumulative_cases
+        first_day_cases = self._quarterly_cases[0]._monthly_list_cases[0].cumulative_cases
 
-        last_day_cases = self._quarter_cases[-1]._month_list_cases[-1].cumulative_cases
+        last_day_cases = self._quarterly_cases[-1]._monthly_list_cases[-1].cumulative_cases
 
 
         return last_day_cases - first_day_cases

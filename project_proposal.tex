@@ -1,0 +1,136 @@
+\documentclass[fontsize=11pt]{article}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.75in]{geometry}
+ \usepackage{hyperref}
+
+\title{CSC110 Project Report: COVID-19 Impact on Maritime Trade}
+\author{Yue Fung Lee, Clark Wang Zhang, Danny Lu, Alex Balaria}
+\date{Friday, November 5, 2021}
+
+\begin{document}
+\maketitle
+
+\section*{Problem Description and Research Question}
+
+
+The research question we will be analyzing is “\textbf{how has the pandemic impacted US maritime trade and the economy?}” With maritime shipping accounting for 80\% of the world’s trade, it is obvious how the COVID-19 pandemic could destroy many economies throughout the world. In our project, we will be using data visualizations and linear regression models, to explore the impact the pandemic had on the economy and in particular, maritime trade.
+
+The impact of maritime trade has many direct and indirect effects on the economy worldwide. Industries associated with trade have been impacted directly, especially those that revolve around port cities. Industries, such as food, medicine, and technology that rely on the efficiency of maritime trade pre-pandemic suffered consequences. Developing countries also took a huge toll, as many of them had underdeveloped economies that relied heavily on maritime trade. The surprising consequences the pandemic had on trade revealed many flaws in globalization, causing countries to reevaluate their dependency on global maritime trade. Though there are temporary impacts that would end with the pandemic, some aspects of maritime trade may be altered for good. 
+
+COVID-19 ultimately caused the global economy to shrink and cause almost all countries to go into an economic recession. A specific example of the unprecedented changes in the economy is when the oil prices dropped below zero for the first time in history, due to the expiry of delivery contracts and limited storage capacity to receive them. With maritime trade being a large contributor to many countries’ economies, it is clear how the trade contraction caused by the pandemic is deeper than the financial crisis of 2008-2009.
+
+Using computational strategies, we hope to answer our research question of how the pandemic impacted global maritime trade and hopefully gain insight into the implications the reduction in maritime trade has had on the economy worldwide. Since this pandemic’s impacts have been unprecedented, we must examine its effects to improve the maritime trade infrastructure in the future.
+
+The above is just the same problem description and research question from our project proposal. Some \textbf{new changes} that we decided to incorporate after considering the feedback from the TA. They mentioned that it is less convincing that we only have one variable(unemployment) to measure how the US economy is doing. Hence, we decided to add a data sets and also in the process found new better data sets, this would be reflected below in the \textbf{Data set Description} part of the proposal. The data sets that we replaced specifically is \textbf{Unemployment by Country 1991-2020 Data set}, \textbf{Unemployment by Country 2021 Data set} and \textbf{Shipping Data set}. Note, all of the new data sets that are going to be used will have a \textbf{(new)} label. Secondly, for data processing the TA recommended us to use pandas, hence we would be using this to do data processing for most of our files.
+
+\section*{Data set Description}
+
+\begin{enumerate}
+    \item \textbf{COVID Data set} - This csv data set is provided by the World Health Organization's Coronavirus (COVID-19) Dashboard (See reference below). This data set is relevant to shipping statistics so see the correlation between COVID cases and maritime trade of the US. The header row consists of \textit{Date\_reported, Country\_ code, Country, WHO\_region, New\_cases, cumulative\_cases, New\_deaths, Cumulative\_deaths}.
+    
+    \item \textbf{US Unemployment Data set(new)} - This csv data set is provided by Fred Economic Research (See reference below) The data set is relevant to the unemployment within the US, as this is one of the main factors that we are going to be looking at compared to the the COVID cases to look at the US economy. The header row consist of the fields \textit{Dates, Unemployment percentage}. The unemployment data set ranged from January 1948 to around November 2021. We will be processing the data to only the relevant years and months needed.
+    
+    \item \textbf{US GDP growth Data set} - This xls data set is provided by Statistica (See reference below). This data set is relevant to measuring US's economy. A countries GDP is a snapshot of how well a country is doing economic wise and represents a countries economic health and growth for a period of time. The header row consist of \textit{quarters, change in \%} The quarters are from quarter 1 of 2011 to Quarter 3 of 2021, again we will only be filtering out the necessary years.
+    
+    \item \textbf{US Shipping data set(new)} - This json data set is provided by the US Department of Transportation more specifically the Bureau of Transportation Statistics (See reference below). This data set is relevant is relevant as it is the primary variable that we are looking at for this project and gives information such as Port Code and the value of that certain shipping. The attributes consist of \textit{Trade Type, Port Code, Commodity type, Mode of transportation, Country Code, Value in Dollars, Shipping Weight, Freight Charges, Domestic Codes, Container Type, Month and Year}. We will again be processing only the relevant information from this data set, which would only be \textit{Port Code, Country Code and Values in Dollars, Month and Year}
+\end{enumerate}
+
+\section*{Computational Overview}
+
+In this computational overview, I will be providing details as to what are some of the data transformations and filtering that we need. Secondly, I will be describing some of the algorithms that we used in addition to the new libraries used. In many ways some of the code is similar, in that case I would just be outlining what are some computations of one file and refer to the other ones briefly. Within our project there are many different files, we have separated these into data, data\_loading, data\_processing, entities, regression, tests and Utilities. I will be talking about these different folders and files within these folders in their respective section below.
+
+\begin{enumerate}
+    
+    \item \textbf{data folder -}\\
+    This is the folder were all of the data set resides, hence there are no computations that are done within this folder.
+    
+    \item \textbf{data\_loading folder -}\\
+    The main purpose of files within this folder is to load the data set of the respective type into Python so then we can start to manipulate, filter and do other processing with the data. Within this folder we have an abstract data class called \textit{DataLoad}, that has Instance attributes of raw\_data, which is of type \textit{Any} and \textit{file\_path}, which is of type String. We then initialize this as we are now using the \textit{\@dataclass} decorator, we also have a \textit{load\_data} method that raises a \textit{NotImplementedError}. This abstract data class is then going to become our parent class for all of our concrete data loading classes. This includes \textit{LoadCovidCases}, \textit{LoadGdp}, \textit{LoadShipping} and \textit{LoadUnempolyment} classes. The process of loading these classes is largely very similar as most of our data set files are csv files and it is similar to how we read data in lecture exercises and assignments. Within we always skip the header row as we do not need the headers, rather we are going to be creating our own data classes that store the information from the data set. However, there is one slight difference: our GDP data set is an excel file.
+    
+\begin{enumerate}
+    \item \textbf{LoadGdp.py}\\
+    We had to use another package that is called \textit{openpyxl}. This python package allows for reading from different sheets within one xls file. When downloading the data set from Statistica, they usually have 2 sheets within their data, the first one being a brief description as to what the data set is about, the second being the data itself. Openpyxl allows us to choose from which sheet we want the data from. Then we used a while loop that loops when the \textit{sheet\_data.cell} value is not None, within the loop we then append to \textit{raw\_data}, which in this case would be a list, we append tuples that contain the value of of the quarter and the corresponding value of GDP growth as a float.
+\end{enumerate}
+
+    \item \textbf{entities folder -}\\
+    This is where most of our concrete data class reside. In some cases, we used the \textit{@dataclass} decorator for data classes that did not need any additional methods. This includes the \textit{DailyCases}, \textit{MonthlyUnemployment}, \textit{QuarterlyGdp} and \textit{ShipTrade}. In all of these we did not have any private instance variables as it was not necessary and we simply had a few attributes and assigned a type. In other cases, such as \textit{MonthlyCases}, \textit{MonthlyShipping}, \textit{QuarterlyCovidCases}, \textit{QuarterlyGdp}, \textit{QuarterlyShipping}, \textit{QuarterlyUnemployment} and \textit{ShipTrade}. In all of these classes, they each have at least one attribute that takes a concrete \textit{dataclass}. An example of this is \textit{MonthlyCovidCases}, it initialises with \textit{monthly\_cases}, \textit{cumulative\_cases}, \textit{month} and \textit{year}. The \textit{monthly\_cases} is a list that contains different instance objects of \textit{DailyCases}. The other attributes are calculated from methods that are also within the class such as \textit{calculate\_average\_daily\_increase} and \textit{calculate\_total\_monthly\_increase}. Then this \textit{dataclass} is called in the \textit{QuarterlyCovidCases} data class as that is the final representation of data we are going to be showing, we want all of our data to be represented as different quarters. This is the same for all monthly data except QuarterlyGdp, such as \textit{MonthlyShipping}, as it is also part of the \textit{QuarterlyShipping}. In these data classes, there were also methods that calculate relevant data. These methods are all going to be used within the data processing part discussed promptly.
+    
+    \item \textbf{data\_processing folder -}\\
+    This folder contains all of the processing of the data, each one is different and uses different techniques. Hence, I will be discussing them separately.
+    
+    \begin{enumerate}
+        \item \textbf{ProcessCovidCases.py}\\
+        ##TODO
+        \item \textbf{ProcessGdp.py}\\
+        ##TODO
+        \item \textbf{ProcessShippingData.py}\\
+        ##TODO
+        \item \textbf{ProcessUnemployment.py}
+    \end{enumerate}
+    
+    \item \textbf{regression folder-}\\
+    ##TODO
+
+    \item \textbf{test folder -}\\
+    In this folder, there are unit test for all of the data processing methods, these contain assert statements that compare the processed methods with expected methods.
+    
+    \item \textbf{Utilities folder -}\\
+    This folder contains utilities and constants that we are working with and does not really have any computations within them.
+    
+\end{enumerate}
+
+\section*{Instructions in Obtaining Data set and running the program}
+
+\begin{enumerate}
+    \item \textbf{Download the all packages from requirements.txt}
+    \item \textbf{Links to download data sets from}
+        \begin{enumerate}
+            \item \href{https://covid19.who.int/info?openIndex=2}{COVID Data set} (Download first link for \textbf{Daily cases and deaths by date reported to WHO})
+            \item \href{https://fred.stlouisfed.org/series/LNS14000024}{US Unemployment Data set} (Download csv version)
+            \item \href{https://www.statista.com/statistics/188185/percent-change-from-preceding-period-in-real-gdp-in-the-us/}{US GDP growth Data set} (Download xls version)
+            \item \href{https://data.bts.gov/Research-and-Statistics/Port-and-Commodity-TransBorder-January-2006-to-Lat/ku5b-t97n/data}{US Shipping Data set} (Click on export and download the json version of the file)
+        \end{enumerate}
+    \item \textbf{Running the main.py}
+        \begin{enumerate}
+            \item \textbf{Result of running main.py}\\
+            ## TODO
+            \item \textbf{Interaction/Visualization}\\
+            ## TODO
+        \end{enumerate}
+\end{enumerate}
+
+\section*{Description of Changes from Project Proposed}
+As mentioned in the Problem Description, the main thing that changed within the project is the data sets as we have found better data sets that are to replace the ones proposed in the project proposal. Secondly, we also found and additional data sets that is in the form of GDP statistics of the US, as our TA advise that it would be better to have an additional metric included to get a better picture on the economy of the US instead of just measuring with unemployment statistics proposed in the project proposal. Lastly, we also used pandas as this was a package that was recommended by the TA, this is mainly used to help with data filtering.
+
+\section*{Discussion Section}
+\begin{enumerate}
+    \item Answering Research Question\\
+    ##TODO
+    \item Limitations and obstacles encountered\\
+    ##TODO
+    \item Further exploration\\
+    ##TODO
+\end{enumerate}
+
+\section*{References}
+
+\hspace*{4mm} "Data Download". WHO Coronavirus (COVID-19) Dashboard, 2021, https://covid19.who.int/info/.
+
+"Why Is Maritime Shipping Important?". Medium, 2021,\\ https://medium.com/@bitnautic/why-is-maritime-shipping-important-6a1cd7cc99ef.
+
+Jugović, Alen. "Journal Of Marine Science And Engineering". Mdpi.Com, 2021,\\ https://www.mdpi.com/journal/jmse/special\_issues/transport\_management.
+
+Millefiori, Leonardo M. et al. "COVID-19 Impact On Global Maritime Mobility". Nature, 2021,\\ https://www.nature.com/articles/s41598-021-97461-7.
+
+"Tutorials  |  Tensorflow Core". Tensorflow, 2021, https://www.tensorflow.org/tutorials.
+
+“Port and Commodity TransBorder - January 2006 to Latest Available Month: Open Data.” Socrata,\\ https://data.bts.gov/Research-and-Statistics/Port-and-Commodity-TransBorder-January-2006-to-Lat/ku5b-t97n/data.
+
+Published by Statista Research Department, and Dec 1.\\“U.S. Real GDP Growth by Quarter 2021.” Statista, 1 Dec. 2021,\\ https://www.statista.com/statistics/188185/percent-change-from-preceding-period-in-real-gdp-in-the-us/.
+
+“Unemployment Rate - 20 Yrs. & Over.” FRED, 3 Dec. 2021, https://fred.stlouisfed.org/series/LNS14000024.
+
+"Codes for North American Transborder Freight Data". 13 Dec. 2021, \\https://www.bts.gov/sites/bts.dot.gov/files/docs/browse-statistical-products-and-data/transborder-freight-data/220171/codes-north-american-transborder-freight-raw-data.pdf
+
+\end{document}

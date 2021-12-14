@@ -9,13 +9,18 @@ from entities.MonthlyUnemployment import MonthlyUnemployment
 
 
 class QuarterlyUnemployment:
-    """Quarterly unemployment rate in the US"""
+    """Quarterly unemployment rate in the US
+    Instance Attributes:
+        - _list_monthly: list of 
+        - quarter: the quarter corresponding to the unemployment rate
+        - year: the year corresponding to the unemployment rate
 
-    def __init__(self, list_monthly: list[MonthlyUnemployment], quarter, year):
-        """Initialize a new monthly unemployment model
+    Representation Invariants:
+        - 0 < self.month < 13
+    """
 
-        The System starts with no entities.
-        """
+    def __init__(self, list_monthly: list[MonthlyUnemployment], quarter: int, year: int):
+        """Initialize a new quarterly unemployment model"""
         self._list_monthly = list_monthly
         self._quarter = quarter
         self._year = year

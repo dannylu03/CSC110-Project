@@ -3,7 +3,8 @@
 Copyright and Usage Information
 ===============================
 
-This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee."""
+This file is Copyright (c) 2021 Clark Zhang, Danny Lu, Alex Balaria, Yue Fung Lee.
+"""
 from dataclasses import dataclass
 
 
@@ -14,9 +15,9 @@ class DailyCases:
     Instance Attributes:
         - country: the country corresponding to the COVID cases
         - cumulative_cases: the total cumulated cases within the country
-        - new_cases: the total about of new cases of that month
+        - new_cases: the number of new cases
         - year: the year corresponding to the cases
-        - month: the month in the year corresponding to the cases
+        - month: the month corresponding to the cases
 
     Representation Invariants:
         - self.country != ''

@@ -17,21 +17,21 @@ class QuarterlyShipping:
         - 0 < self.quarter < 5
 
     Private Instance Attributes:
-        - _monthly_ship_trades: a list of Monthly Shipping Data. This represents all of the shipping
-            data by month.
+        - _monthly_ship_trades: a list of Monthly Shipping Data
 
     Instance Attributes:
-        - quarterly_value: the average of a certain quarter within a certain year.
+        - _monthy_ship_trades: list of MonthlyShipping objects
+        - quarterly_value: the total shipment value in the quarter
         - quarter: quarter of the year
         - year: the year that corresponding to the value
     """
 
-    _monthly_ship_trades: [MonthlyShipping]
+    _monthly_ship_trades: List[MonthlyShipping]
     quarterly_value: int
     quarter: int
     year: int
 
-    def __init__(self, quarter: int, year: int, ship_trades: list[MonthlyShipping]):
+    def __init__(self, quarter: int, year: int, ship_trades: list[MonthlyShipping]) -> None:
         self._monthly_ship_trades = ship_trades
         self.quarter = quarter
         self.year = year
