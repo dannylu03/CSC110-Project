@@ -14,7 +14,7 @@ class QuarterlyCovidCases:
         - cumulative_cases: the total cumulated cases within the country
         - new_cases: the number of new cases
         - year: the year corresponding to the cases
-        - month: the month corresponding to the cases
+        - quarter: the quarter corresponding to the cases
 
     Representation Invariants:
         - 0 < self.month < 13
@@ -24,6 +24,22 @@ class QuarterlyCovidCases:
         self._cumulative_cases = cumulative_cases
         self._quarter = quarter
         self._year = year
+
+    def get_quarterly_cases(self) -> list[MonthlyCovidCases]:
+        """Return the object's quarterly cases."""
+        return self._quarterly_cases
+
+    def get_cumulative_cases(self) -> int:
+        """Return the object's cumulative cases."""
+        return self._cumulative_cases
+
+    def get_quarter(self) -> int:
+        """Return the object's quarter."""
+        return self._quarter
+    
+    def get_year(self) -> int:
+        """Return the object's year."""
+        return self._year
 
     #TODO: Delete redundant methods
 
