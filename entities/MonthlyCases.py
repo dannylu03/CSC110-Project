@@ -25,17 +25,21 @@ class MonthlyCovidCases:
         self._cumulative_cases = cumulative_cases
         self._month = month
         self._year = year
-    
-    def get_monthly_cases(self) -> None:
+
+    def get_monthly_cases(self) -> list[DailyCases]:
+        """Return the object's monthly cases."""
         return self._monthly_cases
     
-    def get_cumulative_cases(self) -> None:
+    def get_cumulative_cases(self) -> int:
+        """Return the object's cumulative cases."""
         return self._cumulative_cases
     
-    def get_month(self) -> None:
+    def get_month(self) -> int:
+        """Return the object's month."""
         return self._month
     
-    def get_year(self) -> None:
+    def get_year(self) -> int:
+        """Return the object's year."""
         return self._year
 
     def calculate_average_daily_increase(self) -> float:
